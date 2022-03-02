@@ -1,16 +1,17 @@
-# Instalar react
+# Install react
 npm i react react-dom -D
 
 npm install react-router-dom -D
 
-# Convertir codigo react en html para ser leido por el backend 
+# Install webpack
 npm i webpack -D
 npm i webpack-cli -D
 
-# Traductor JSX y JavaScript moderno
-npm i @babel/core @babel/preset-env @babel/preset-react -D
+# modern translate JSX and JavaScript 
+npm i @babel/core @babel/preset-env @babel/preset-react file-loader -D
 
 
 # ----------------------------------
+# Run proyect
 npm run webpack
 npm run dev
