@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
+const { mongodb }  = require('./keys');
 
-const URI = 'mongodb+srv://pipe:BhO5BhIyLsyVYIaZ@cluster0.ha105.mongodb.net/roomie?retryWrites=true&w=majority';
-
-mongoose.connect(URI)
+mongoose.connect(mongodb.URI)
     .then(db => console.log('DB is connected'))
         .catch(err => console.error(err));
 

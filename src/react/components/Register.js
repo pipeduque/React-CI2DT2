@@ -78,7 +78,7 @@ export default function Register() {
 
 
     function fetchUser() {
-        fetch('api/users')
+        fetch('/register')
             .then(res => res.json())
             .then(data => {
                 dispatch({
@@ -90,7 +90,7 @@ export default function Register() {
 
     useEffect(() => {
 
-        fetch('api/users')
+        fetch('/register')
             .then(res => res.json())
             .then(data => {
                 dispatch({
@@ -105,7 +105,7 @@ export default function Register() {
 
         if (state._id) {
 
-            fetch(`/api/users/${state._id}`, {
+            fetch(`/register/${state._id}`, {
                 method: 'PUT',
                 body: JSON.stringify(state),
                 headers: {
@@ -116,15 +116,15 @@ export default function Register() {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    M.toast({html: 'Usuario modificado'});
+                    M.toast({ html: 'Usuario modificado' });
                     dispatch({
                         type: 'clearData'
                     });
                     fetchUser();
                 });
         } else {
-            fetch('/api/users', {
-                method: 'POST',
+            fetch('/register', {
+                method: 'PUT',
                 body: JSON.stringify(state),
                 headers: {
                     'Accept': 'application/json',
@@ -153,7 +153,7 @@ export default function Register() {
     function handleDelete(id) {
 
         if (confirm('Eliminar usuario?')) {
-            fetch(`/api/users/${id}`, {
+            fetch(`/register/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
@@ -175,7 +175,7 @@ export default function Register() {
 
     function handleEdit(id) {
 
-        fetch(`/api/users/${id}`)
+        fetch(`/register/${id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -229,6 +229,12 @@ export default function Register() {
 
     return (
         <>
+
+            <meta name="xm-bind-id-client_id" content="033024c4.6ed1f6ae.tid_385f9417.bindid.io" />
+
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CPromise.prototype.finally%2CTextDecoder%2CTextEncoder%2CObject.entries"></script>
+            <script src="https://signin.bindid-sandbox.io/bindid-sdk/transmit-bind-id-sdk.js" defer></script>
+
             <div className='container'>
                 <div className='row'>
                     <div className='col s5'>

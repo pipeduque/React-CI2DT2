@@ -3,6 +3,12 @@ npm i react react-dom -D
 
 npm install react-router-dom -D
 
+# ----------------------------------
+
+npm i passport passport-local bcrypt-nodejs -D
+
+npm i express-session -D
+
 # Install webpack
 npm i webpack -D
 npm i webpack-cli -D
@@ -15,3 +21,4 @@ npm i @babel/core @babel/preset-env @babel/preset-react file-loader -D
 # Run proyect
 npm run webpack
 npm run dev
+
