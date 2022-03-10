@@ -26,14 +26,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-    app.locals.message = req.flash('message');
-    next();
-});
-
 // Routes
 app.use('/', require('./routes/users.routes'));
-
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));

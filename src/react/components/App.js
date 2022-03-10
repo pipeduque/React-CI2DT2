@@ -4,42 +4,23 @@ import Login from './Login';
 import Register from './Register'
 import Home from './Home';
 import NotFound from './NotFound';
-
+import Navbar from './Navbar';
+import Profile from './Profile';
 
 function App() {
 
   return (
     <>
-      {/* Navigation */}
-      <nav className="light-green darken-3">
-
-        <div className='container'>
-          <div className='row'>
-            <div className='col s10'>
-
-              <Link to="/"><a className='brand-logo'>CI2DT2</a></Link>
-            </div>
-            <div className='col s19'>
-              <Link to="/register"><a>Register</a></Link>
-
-            </div>
-            <div className='col s19'>
-
-              <Link to="/login"><a>Login</a></Link>
-
-            </div>
-          </div>
-        </div>
-      </nav>
-
-
+      <Navbar />
 
       <Routes>
+
+        <Route path='*' element={<NotFound />} />
+        <Route path='/' element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path='/' element={<Home />} />
-        <Route path='*' element={<NotFound/>} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
 
 

@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const initialState = {
@@ -76,6 +77,7 @@ export default function Register() {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const navigate = useNavigate();
 
     function fetchUser() {
         fetch('/register')
@@ -137,7 +139,7 @@ export default function Register() {
                     dispatch({
                         type: 'clearData'
                     });
-                    fetchUser();
+                    navigate('/Home')
                 })
                 .catch(err => {
                     M.toast({ html: "Completa los campos obligatorios" });
@@ -229,12 +231,6 @@ export default function Register() {
 
     return (
         <>
-
-            <meta name="xm-bind-id-client_id" content="033024c4.6ed1f6ae.tid_385f9417.bindid.io" />
-
-            <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CPromise.prototype.finally%2CTextDecoder%2CTextEncoder%2CObject.entries"></script>
-            <script src="https://signin.bindid-sandbox.io/bindid-sdk/transmit-bind-id-sdk.js" defer></script>
-
             <div className='container'>
                 <div className='row'>
                     <div className='col s5'>

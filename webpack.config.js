@@ -2,7 +2,7 @@ module.exports = {
 
     entry: './src/react/index.js',
     output: {
-        path: __dirname + '/public',
+        path: __dirname + '/src/public',
         filename: 'bundle.js'
     },
     module: {
@@ -19,6 +19,10 @@ module.exports = {
                         loader: 'file-loader',
                     }
                 ]
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
             }
         ]
     }

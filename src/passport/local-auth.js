@@ -12,7 +12,8 @@ passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
     done(null, user);
 });
-passport.use('local-login', new LocalStrategy({
+
+passport.use('local-signup', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
@@ -22,7 +23,6 @@ passport.use('local-login', new LocalStrategy({
         // find a user in Mongo with provided username
         User.findOne({ 'email': email }, function (err, user) {
             // In case of any error, return using the done method
-            console.log('hola');
             if (err) {
                 console.log('Error in SignUp: ' + err);
                 return done(err);
@@ -59,4 +59,29 @@ passport.use('local-login', new LocalStrategy({
     };
 
     process.nextTick(findOrCreateUser);
+
+
+}
+
+));
+
+passport.use('local-signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, email, password, done) => {
+    console.log('fail');
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+        return done(null, false, req.flash('signinMessage', 'No user found'));
+    }
+
+    if (!user.comparePassword(password)) {
+        return done(null, false, req.flash('signinMessage', 'Incorrect password'));
+    }
+
+    console.log('perfect');
+    done(null, user);
 }));

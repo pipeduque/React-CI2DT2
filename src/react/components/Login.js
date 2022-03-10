@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
     email: '',
@@ -26,11 +27,12 @@ function reducer(state, action) {
 export default function Login() {
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
 
         fetch('/login', {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify(state),
             headers: {
                 'Accept': 'application/json',
@@ -40,7 +42,8 @@ export default function Login() {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                M.toast({ html: "Modificando usuario" });
+                M.toast({ html: "Bienvenido de vuelta!" });
+                navigate('/home')
             })
             .catch(err => {
                 M.toast({ html: err });
@@ -67,8 +70,9 @@ export default function Login() {
 
     return (
         <>
-            <meta name="xm-bind-id-client_id" content="033024c4.6ed1f6ae.tid_385f9417.bindid.io" />
-            <meta name="xm-bind-id-redirect_uri" content="http://localhost:3000/Register" />
+
+            <meta name="xm-bind-id-client_id" content="[033024c4.6ed1f6ae.tid_385f9417.bindid.io]" />
+            <meta name="xm-bind-id-redirect_uri" content="[https://github.com/pipeduque?tab=repositories]" />
 
             <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CPromise.prototype.finally%2CTextDecoder%2CTextEncoder%2CObject.entries"></script>
             <script src="https://signin.bindid-sandbox.io/bindid-sdk/transmit-bind-id-sdk.js" defer></script>
@@ -87,7 +91,7 @@ export default function Login() {
                                     </div>
                                     <div className='row'>
                                         <div className='input-field col '>
-                                            <input type="text" placeholder='Contraseña' onChange={handlePassword} />
+                                            <input type="text" placeholder='Contraseña' onChange={handlePassword} value={state.password} />
                                         </div>
                                     </div>
                                     <div className='row center'>
@@ -103,5 +107,5 @@ export default function Login() {
 
         </>
     );
-}   
+}
 
