@@ -44,7 +44,7 @@ router.get('/login/', async (req, res) => {
 
 router.put('/register/', passport.authenticate('local-login', {
     successRedirect: '/home',
-    failureRedirect: '/home',
+    failureRedirect: '/login',
     passReqToCallback: true
 }) );
 

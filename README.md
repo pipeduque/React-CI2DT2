@@ -5,9 +5,10 @@ npm install react-router-dom -D
 
 # ----------------------------------
 
-npm i passport passport-local bcrypt-nodejs -D
-
+npm i passport passport-local -D
+npm i bcrypt-nodejs -D
 npm i express-session -D
+npm i connect-flash -D
 
 # Install webpack
 npm i webpack -D

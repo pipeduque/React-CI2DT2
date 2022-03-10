@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 //Initializations
 const app = express();
@@ -15,20 +16,31 @@ app.set('port', process.env.PORT || 3000)
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret: 'secretsession',
     resave: false,
     saveUninitialized: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+    app.locals.message = req.flash('message');
+    next();
+});
+
 // Routes
-app.use('/' , require('./routes/users.routes'));
+app.use('/', require('./routes/users.routes'));
+
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+  });
 
 // Starting server
 app.listen(app.get('port'), () => {

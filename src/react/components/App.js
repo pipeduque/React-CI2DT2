@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register'
 import Home from './Home';
+import NotFound from './NotFound';
 
 
 function App() {
@@ -31,12 +32,14 @@ function App() {
         </div>
       </nav>
 
-      
+
 
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path='/' element={<Home/>} />
+        <Route path="/home" element={<Home />} />
+        <Route path='/' element={<Home />} />
+        <Route path='*' element={<NotFound/>} />
       </Routes>
 
 

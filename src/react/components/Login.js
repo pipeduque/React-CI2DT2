@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 
 const initialState = {
     email: '',
+    password: ''
 };
 
 function reducer(state, action) {
@@ -43,7 +44,6 @@ export default function Login() {
             })
             .catch(err => {
                 M.toast({ html: err });
-                M.toast({ html: "error" });
                 console.error(err);
             });
 
@@ -104,3 +104,4 @@ export default function Login() {
         </>
     );
 }   
+

@@ -2,7 +2,7 @@ module.exports = {
 
     entry: './src/react/index.js',
     output: {
-        path: __dirname + '/src/public',
+        path: __dirname + '/public',
         filename: 'bundle.js'
     },
     module: {
