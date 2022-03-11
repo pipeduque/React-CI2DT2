@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { bindId } from "../../keys";
 
 export default function Profile() {
 
-    const {id} = useParams();
+    const { id } = useParams();
 
-    return(
+    return (
         <>
-            
-            <h1>1</h1>
+            <h1>Profile</h1>
             User <h1> {id}</h1>
         </>
     );

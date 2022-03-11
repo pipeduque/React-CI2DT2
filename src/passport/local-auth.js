@@ -69,19 +69,27 @@ passport.use('local-signin', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     passReqToCallback: true
-}, async (req, email, password, done) => {
-    console.log('fail');
+}, (req, email, password, done) => {
 
-    const user = await User.findOne({ email: email });
+    findUser = function () {
+        User.findOne({ email: email }, function (err, user) {
 
-    if (!user) {
-        return done(null, false, req.flash('signinMessage', 'No user found'));
+            if (err) {
+                console.log('Error: ' + err);
+                return done(err);
+            }
+
+            if (!user) {
+                return done(null, false, req.flash('signinMessage', 'No user found'));
+            }
+
+            if (!user.comparePassword(password)) {
+                return done(null, false, req.flash('signinMessage', 'Incorrect password'));
+            }
+            done(null, user);
+        });
     }
 
-    if (!user.comparePassword(password)) {
-        return done(null, false, req.flash('signinMessage', 'Incorrect password'));
-    }
-
-    console.log('perfect');
-    done(null, user);
-}));
+    process.nextTick(findUser);
+}
+));

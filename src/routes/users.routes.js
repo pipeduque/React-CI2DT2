@@ -44,10 +44,16 @@ router.get('/login', async (req, res) => {
 
 });
 
+router.post('/loginbio', async (req, res) => {
+    
+    res.json({ status: 'accepted'});
+});
+
 router.put('/register', passport.authenticate('local-signup'));
 
 router.post('/login', passport.authenticate('local-signin'), async (req, res) => {
-    res.json({ status: 'Login!' });
+
+    res.json(req.user);
 });
 
 router.get('/logout', (req, res, next) => {

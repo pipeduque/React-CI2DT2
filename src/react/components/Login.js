@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+const { bindId }  = require('../../keys');
 
 const initialState = {
     email: '',
@@ -29,6 +30,26 @@ export default function Login() {
     const [state, dispatch] = useReducer(reducer, initialState);
     const navigate = useNavigate();
 
+    function invokeBindId() {
+        window.XmBindId.authenticate({
+            redirectUri: bindId.redirectUri
+        }).then(res => {
+            onSuccess(res);
+            
+            M.toast({ html: "Bienvenido de vuelta " + data.firstName + ' ' + data.lastName + '!' });
+            navigate('/home');
+        }, err => {
+            onFailure(err);
+        })
+    }
+
+    function initializeSDK() {
+        window.XmBindId.initialize({
+            clientId: bindId.clientId,
+            apiCompat: window.XmBindId.XmBindIdApiCompatibilityLevel.UseLatest
+        });
+    }
+
     const handleLogin = (e) => {
 
         fetch('/login', {
@@ -41,13 +62,17 @@ export default function Login() {
         })
             .then(res => res.json())
             .then(data => {
+
                 console.log(data);
-                M.toast({ html: "Bienvenido de vuelta!" });
-                navigate('/home')
+
+                initializeSDK();
+                invokeBindId();
+
+
             })
             .catch(err => {
                 M.toast({ html: err });
-                console.error(err);
+                console.log(err);
             });
 
         e.preventDefault();
@@ -70,13 +95,6 @@ export default function Login() {
 
     return (
         <>
-
-            <meta name="xm-bind-id-client_id" content="[033024c4.6ed1f6ae.tid_385f9417.bindid.io]" />
-            <meta name="xm-bind-id-redirect_uri" content="[https://github.com/pipeduque?tab=repositories]" />
-
-            <script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2CPromise.prototype.finally%2CTextDecoder%2CTextEncoder%2CObject.entries"></script>
-            <script src="https://signin.bindid-sandbox.io/bindid-sdk/transmit-bind-id-sdk.js" defer></script>
-
             <div className='container'>
                 <div className='row'>
                     <div className='col '>
@@ -85,17 +103,16 @@ export default function Login() {
                                 <form onSubmit={handleLogin}>
                                     <div className='row'>
                                         <div className='input-field col'>
-                                            @
-                                            <input type="text" placeholder='Email' onChange={handleEmail} value={state.email} />
+                                            <input type="email" placeholder='Email' onChange={handleEmail} value={state.email} />
                                         </div>
                                     </div>
                                     <div className='row'>
                                         <div className='input-field col '>
-                                            <input type="text" placeholder='Contraseña' onChange={handlePassword} value={state.password} />
+                                            <input type="password" placeholder='Contraseña' onChange={handlePassword} value={state.password} />
                                         </div>
                                     </div>
                                     <div className='row center'>
-                                        <button type="submit" className='xm-bind-id-button btn light-green darken-4'>Biometric Login</button>
+                                        <button type="submit" className='btn light-green darken-4'>Biometric Login</button>
                                     </div>
 
                                 </form>
